@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>baidu js task6</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          .clearfloat{
+              zoom: 1;
+          }
+          .clearfloat:after{
+              content: "";
+              display: table;
+              visibility: hidden;
+              clear: both;
+              height: 0;
+          }
+          #box{
+              color: red;
+              font-size: 12px;
+          }
+          #box div{
+              height: 40px;
+              min-width: 40px;
+              background: red;
+              line-height: 40px;
+              text-align: center;
+              font-size:14px;
+              color: #fff;
+              float: left;
+              margin: 5px;
+              padding: 0  5px;
+              box-sizing: border-box;
+          }
+          textarea{
+              width: 200px;
+              height: 100px;
+          }
+          input{
+              vertical-align: top;
+          }
+
+        </style>
+    </head>
+    <body>
+        <textarea id="text" placeholder="输入英文中文或者数字"></textarea>
+        <input class="btn" type="button" id="leftin" value="左侧入">
+        <input class="btn" type="button" id="rightin" value="右侧入">
+        <input class="btn" type="button" id="leftout" value="左侧出">
+        <input class="btn" type="button" id="rightout" value="右侧出">
+        <input id="word" type="text" placeholder="输入查询词">
+        <input class="btn" id="search" type="button" value="查询">
+        <div id="box"></div>
+        <script src="scripts.js"></script>
+    </body>
+</html>

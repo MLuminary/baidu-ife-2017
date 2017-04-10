@@ -1,0 +1,183 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "黑体";
+}
+body{
+    background:  #DEDEDE;
+    min-width: 780px;
+}
+.clearfloat{
+    zoom: 1;
+}
+.clearfloat:after{
+    content:"";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+/*头部*/
+.head{
+    height: 65px;
+    background: #333333;
+    display: table;
+    vertical-align: middle;
+    width: 100%;
+}
+.head .baidu_logo{
+    display: table-cell;
+    vertical-align: middle;
+    /*height: 65px;*/
+    margin-left: 35px;
+}
+.head .baidu_logo img{
+    margin-left: 35px;
+    cursor: pointer;
+}
+.head .nav{
+    float: right;
+    height: 65px;
+}
+.head .nav li{
+    float: left;
+    line-height: 65px;
+    margin-right: 25px;
+}
+.head .nav li a{
+    color: #fff;
+    text-decoration: none;
+}
+.head .nav li a:hover{
+    color: rgb(146, 146, 152);
+}
+
+/*主体部分*/
+
+.page{
+    margin:20px 460px 20px 20px;
+    background: #fff;
+    box-shadow: 2px 2px 2px #848484;
+    padding: 20px;
+    line-height: 1.5;
+}
+.page h2{
+    color: rgb(123, 124, 128);
+}
+.page p{
+    font-size: 14px;
+    text-indent: 2em;
+}
+.page .introduction{
+    color: rgb(118, 130, 146);
+    font-size: 12px;
+    text-indent: 0;
+}
+.Two ul{
+    margin-left: 20px;
+    list-style: none;
+}
+.Three .img_box{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #848484;
+    text-align: center;
+    display: block;
+    margin-left: 30px;
+    margin-top: 20px;
+    float: left;
+}
+.Three .img_box img{
+    width: 70%;
+}
+
+.Three .img_box span{
+    font-size: 12px;
+}
+.Four ol{
+    margin-left: 50px;
+    font-weight: bold;
+}
+.Four table{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    border-collapse:collapse;
+    border: 1px solid #ccc;
+}
+.Four th{
+    color: #fff;
+    background-color: #333;
+}
+.Four tr:last-child td{
+    background-color: #ccc;
+    font-weight: bold;
+}
+.Five{
+    width: 420px;
+    float: right;
+    margin-right: 20px;
+    box-sizing: border-box;
+}
+.Five h2{
+    color: #000;
+    display: block;
+    border-left: 4px solid #ccc;
+    text-indent: 1em;
+    font-size: 20px;
+}
+.Five form{
+    margin: 20px;
+    font-size: 14px;
+}
+
+.Five .message{
+    width: 30%;
+    text-align: right;
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 10px;
+    vertical-align: top;
+}
+
+.Five .bottom{
+    vertical-align: bottom;
+}
+.Five .information{
+    color: #ccc;
+    margin-left: 32%;
+    margin-top: 10px;
+}
+.Five form input[type="radio"]{
+    margin-top: 13px;
+}
+.Five form select{
+    margin-top: 13px;
+}
+.Five form input[type="checkbox"]{
+    margin-top: 13px;
+}
+.Five textarea{
+    margin-top: 13px;
+    height: 100px;
+    width: 50%;
+}
+.Five input[type="submit"]{
+    width: 100%;
+    height: 50px;
+    background-color: #3355D0;
+    color: #fff;
+    margin-top: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #3355D0;
+    font-size: 20px;
+}
+.foot{
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    background: #000;
+    color: #fff;
+}

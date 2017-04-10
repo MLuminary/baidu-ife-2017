@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>baidu js task4</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          .clearfloat{
+              zoom: 1;
+          }
+          .clearfloat:after{
+              content: "";
+              display: table;
+              visibility: hidden;
+              clear: both;
+              height: 0;
+          }
+          #box{
+              color: red;
+              font-size: 12px;
+          }
+          #box div{
+              height: 40px;
+              min-width: 40px;
+              background: red;
+              line-height: 40px;
+              text-align: center;
+              font-size:14px;
+              color: #fff;
+              float: left;
+              margin: 5px;
+              padding: 0  5px;
+              box-sizing: border-box;
+          }
+        </style>
+    </head>
+    <body>
+        <input id="num" type="text"><input type="button" id="leftin" value="左侧入"><input type="button" id="rightin" value="右侧入">
+        <input type="button" id="leftout" value="左侧出"><input type="button" id="rightout" value="右侧出">
+        <div id="box"></div>
+        <script src="scripts.js"></script>
+    </body>
+</html>

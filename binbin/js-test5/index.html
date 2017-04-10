@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>baidu js task5</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          .clearfloat{
+              zoom: 1;
+          }
+          .clearfloat:after{
+              content: "";
+              display: table;
+              visibility: hidden;
+              clear: both;
+              height: 0;
+          }
+          #box{
+              height: 100px;
+              position: relative;
+              top: 20px;
+          }
+          #box div{
+              position: relative;
+              width: 20px;
+              background: red;
+              float: left;
+              margin:2px 2px;
+              bottom: 0;
+          }
+        </style>
+    </head>
+    <body>
+        <input id="num" type="text"><input type="button" id="leftin" value="左侧入"><input type="button" id="rightin" value="右侧入">
+        <input type="button" id="leftout" value="左侧出"><input type="button" id="rightout" value="右侧出">
+        <input type="button" id="max" value="正序排序"> <input type="button" id="min" value="逆序排序">
+        <div id="box" class="clearfloat">
+            
+        </div>
+        <script src="scripts.js"></script>
+    </body>
+</html>
