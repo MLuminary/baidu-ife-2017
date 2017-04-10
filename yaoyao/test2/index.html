@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>test2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table {
+            margin: 0 auto;
+        }
+        
+        table tr td:first-child {
+            vertical-align: text-top;
+            text-align: right;
+            padding-right: 20px;
+        }
+        
+        table tr td input {
+            width: 300px;
+            height: 25px;
+            border-radius: 5px;
+            outline: none;
+            border: 2px solid gainsboro;
+            padding: 0 5px;
+        }
+        
+        table tr td input:focus {
+            border: 2px solid lightskyblue;
+        }
+        
+        table tr td p {
+            font-size: 10px;
+            color: gainsboro;
+        }
+        
+        #submit {
+            background-color: rgb(47, 121, 186);
+            border: 0;
+            color: #fff;
+            height: 25px;
+            width: 50px;
+            float: right;
+            cursor: pointer;
+        }
+        
+        .txterror {
+            color: red;
+        }
+        
+        .inputerror {
+            border: 2px solid red;
+        }
+        
+        .txtsuccess {
+            color: lightgreen;
+        }
+        
+        .inputsuccess {
+            border: 2px solid lightgreen;
+        }
+        
+        .txtnormal {
+            color: gainsboro;
+        }
+        
+        .inputnormal {
+            border: 2px solid gainsboro;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <table>
+            <tr>
+                <td>名称</td>
+                <td>
+                    <input type="text" name="name" index="0">
+                    <p></p>
+                </td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td>
+                    <input type="password" name="password" index="1">
+                    <p></p>
+                </td>
+            </tr>
+            <tr>
+                <td>密码确认</td>
+                <td>
+                    <input type="password" name="apassword" index="2">
+                    <p></p>
+                </td>
+            </tr>
+            <tr>
+                <td>邮箱</td>
+                <td>
+                    <input type="text" name="mail" index="3">
+                    <p></p>
+                </td>
+            </tr>
+            <tr>
+                <td>手机</td>
+                <td>
+                    <input type="text" name="phone" index="4">
+                    <p></p>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input id="submit" type="submit" value="提交"></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        (function () {
+            var inputs = document.getElementsByTagName('input'),
+                infos = document.getElementsByTagName('p'),
+                submit = document.getElementById('submit');
+
+            for (var i = 0; i < inputs.length - 1; i++) {
+                inputs[i].addEventListener('focus', prompt);
+                inputs[i].addEventListener('blur', change);
+            }
+            submit.onclick = function () {
+                //先将表单验证一遍
+                name(inputs[0].value, inputs[0], 0);
+                password(inputs[1].value, inputs[1], 1);
+                apassword(inputs[2].value, inputs[2], 2);
+                mail(inputs[3].value, inputs[3], 3);
+                phone(inputs[4].value, inputs[4], 4);
+                //获取有问题的表单
+                isCan = true;
+                for (var i = 0; i < inputs.length - 1; i++) {
+                    if (inputs[i].className == 'inputerror') {
+                        isCan = false;
+                        break;
+                    }
+                }
+                //只要有一个表单有问题，isCan返回false
+                if (isCan == true) {
+                    alert("提交成功!");
+                } else {
+                    alert("输入有误!");
+                }
+                return false;
+            }
+
+            //点击输入框提示
+            function prompt() {
+                var input = this,
+                    index = input.getAttribute('index'),
+                    type = input.getAttribute('name');
+
+                switch (type) {
+                    case 'name':
+                        infos[index].innerText = "必填，长度为4~16个字符";
+                        infos[index].className = "txtnormal";
+                        break;
+                    case 'password':
+                        infos[index].innerText = "请输入8位以上16位以下密码";
+                        infos[index].className = "txtnormal";
+                        break;
+                    case 'apassword':
+                        infos[index].innerText = "再次输入相同的密码";
+                        infos[index].className = "txtnormal";
+                        break;
+                    case 'mail':
+                        infos[index].innerText = "输入你的邮箱";
+                        infos[index].className = "txtnormal";
+                        break;
+                    case 'phone':
+                        infos[index].innerText = "输入你的手机号";
+                        infos[index].className = "txtnormal";
+                        break;
+                }
+
+
+            }
+
+            //进行表单验证
+            function change() {
+                var input = this,
+                    index = input.getAttribute('index')
+                type = input.getAttribute('name'),
+                    txt = input.value;
+
+                switch (type) {
+                    case 'name':
+                        name(txt, input, index);
+                        break;
+                    case 'password':
+                        password(txt, input, index);
+                        break;
+                    case 'apassword':
+                        apassword(txt, input, index);
+                        break;
+                    case 'mail':
+                        mail(txt, input, index);
+                        break;
+                    case 'phone':
+                        phone(txt, input, index);
+                        break;
+                }
+
+            }
+
+
+            //对name的验证
+            function name(str, input, index) {
+                var length = 0;
+                for (i = 0; i < str.length; i++) {
+                    var code = str.charCodeAt(i);
+                    if (code >= 0 && code <= 128) {
+                        length++;
+                    } else {
+                        length += 2;
+                    }
+                }
+                if (length == 0) {
+                    input.className = 'inputerror';
+                    infos[index].innerText = "名称不能为空";
+                    infos[index].className = 'txterror';
+                } else if (length >= 4 && length <= 16) {
+                    input.className = 'inputsuccess';
+                    infos[index].innerText = "名字格式正确";
+                    infos[index].className = 'txtsuccess';
+                } else {
+                    input.className = 'inputerror';
+                    infos[index].innerText = "必填，长度为4~16个字符";
+                    infos[index].className = 'txterror';
+                }
+            }
+            //对密码的验证
+            function password(str, input, index) {
+                if (str.length == 0) {
+                    input.className = "inputerror";
+                    infos[index].innerText = "密码不能为空";
+                    infos[index].className = "txterror";
+                } else if (str.length >= 8 && str.length <= 16) {
+                    input.className = 'inputsuccess';
+                    infos[index].innerText = "密码格式正确";
+                    infos[index].className = "txtsuccess";
+                } else {
+                    input.className = 'inputerror';
+                    infos[index].innerText = "请输入8位以上16位以下密码";
+                    infos[index].className = "txterror";
+                }
+            }
+            //第二次密码输入框的验证
+            function apassword(str, input, index) {
+                var correct = true;
+                var txt = inputs[1].value;
+                for (var i = 0; i < txt.length; i++) {
+                    if (str[i] != txt[i]) {
+                        correct = false;
+                        break;
+                    }
+                }
+                if (str.length == 0) {
+                    input.className = 'inputerror';
+                    infos[index].innerText = '请先输入密码';
+                    infos[index].className = 'txterror';
+                } else if (correct == true) {
+                    input.className = 'inputsuccess';
+                    infos[index].innerText = '密码输入正确';
+                    infos[index].className = 'txtsuccess';
+                } else {
+                    input.className = 'inputerror';
+                    infos[index].innerText = '再次输入的密码不相同';
+                    infos[index].className = 'txterror';
+                }
+            }
+
+            //验证邮箱
+            function mail(str, input, index) {
+                var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+                if (reg.test(str) == true) {
+                    input.className = 'inputsuccess';
+                    infos[index].innerText = '邮箱格式正确';
+                    infos[index].className = 'txtsuccess';
+                } else {
+                    input.className = 'inputerror';
+                    infos[index].innerText = '邮箱格式输入不正确';
+                    infos[index].className = 'txterror';
+                }
+            }
+
+            //验证手机
+            function phone(str, input, index) {
+                var reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
+                if (reg.test(str) == true) {
+                    input.className = 'inputsuccess';
+                    infos[index].innerText = '手机格式正确';
+                    infos[index].className = 'txtsuccess';
+                } else {
+                    input.className = 'inputerror';
+                    infos[index].innerText = '请输入正确的手机格式';
+                    infos[index].className = 'txterror';
+                }
+            }
+
+
+
+        }())
+    </script>
+</body>
+
+</html>
