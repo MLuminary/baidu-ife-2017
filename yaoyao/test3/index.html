@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>test3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .box {
+            width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        select {
+            width: 100px;
+            height: 20px;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        .school {
+            display: none;
+        }
+        
+        .on {
+            display: inline-block;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='box' class="box">
+        <input type="radio" id="inSchool" name="school" checked=true>
+        <label for="inSchool">在校生</label>
+        <input type="radio" id="outSchool" name="school">
+        <label for="outSchool">非在校生</label>
+        <div class="inSchool show">
+            <span>学校</span>
+            <select id="city" class="city">
+                    <option value="1">北京</option>
+                    <option value="2">湖南</option>
+                    <option value="3">山东</option>
+                    <option value="4">江西</option>
+                    <option value="5">四川</option>
+                </select>
+            <select class="school on">
+                    <option value="1">北京大学</option>
+                    <option value="2">清华大学</option>
+                    <option value="3">北京理工大学</option>
+                </select>
+            <select class="school">
+                    <option value="1">湘潭大学</option>
+                    <option value="2">湖南科技大学</option>
+                    <option value="3">湖南理工大学</option>
+                </select>
+            <select class="school">
+                    <option value="1">山东大学</option>
+                    <option value="2">山东理工大学</option>
+                    <option value="3">山东科技大学</option>
+                </select>
+            <select class="school">
+                    <option value="1">南昌大学</option>
+                    <option value="2">江西理工大学</option>
+                    <option value="3">江西师范大学</option>
+                </select>
+            <select class="school">
+                    <option value="1">四川大学</option>
+                    <option value="2">电子科技大学</option>
+                    <option value="3">成都理工大学</option>
+                </select>
+        </div>
+        <div class="outSchool hidden">
+            <span>就业单位</span><input type="text">
+        </div>
+    </div>
+    <script>
+        (function () {
+            var radios = document.getElementsByName('school'),
+                box = document.getElementById('box'),
+                city = document.getElementById('city'),
+                citys = box.getElementsByTagName('select'),
+                contents = box.getElementsByTagName('div');
+            //监听radio的改变
+            for (var i = 0; i < radios.length; i++) {
+                (function () {
+                    radios[i].onchange = boxChange;
+                })(i)
+            }
+            //监听city多选框值的改变
+            city.onchange = cityChange;
+
+            //在校生非在校生面板转换
+            function boxChange() {
+                var radio = this,
+                    type = radio.getAttribute('id');
+
+                if (radio.checked == true) {
+                    if (type == 'inSchool') {
+                        contents[0].className = "inSchool show";
+                        contents[1].className = "outSchool hidden";
+                    } else {
+                        contents[0].className = "inSchool hidden"
+                        contents[1].className = "outSchool show";
+                    }
+                }
+
+            }
+            //在校生面板多选框转换
+            function cityChange() {
+                var cityNum = this.value;
+                for (var i = 1; i < citys.length; i++) {
+                    citys[i].className = "school";
+                }
+                citys[cityNum].className = "school on";
+            }
+        })()
+    </script>
+</body>
+
+</html>
