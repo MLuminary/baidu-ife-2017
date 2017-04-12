@@ -28,6 +28,7 @@
             height: 50px;
             background-color: red;
             transition: 1s;
+            border-top: 25px solid blue;
         }
     </style>
 </head>
@@ -68,7 +69,7 @@
         }
 
         var index = 0;//index代表方向，0代表上，1代表右，2代表下，3代表左
-        turnPoint(index);
+        var myindex = 0;//旋转的参数
         //执行方格的动作
         function move() {
             var txt = text.value;
@@ -76,15 +77,18 @@
             switch (txt) {
                 case 'TUN LEF':
                     index -= 1;
-                    turnPoint(index);
+                    myindex -= 1;
+                    turnPoint(myindex);
                     break;
                 case 'TUN RIG':
                     index += 1;
-                    turnPoint(index);
+                    myindex += 1;
+                    turnPoint(myindex);
                     break;
                 case 'TUN BAC':
                     index += 2;
-                    turnPoint(index);
+                    myindex += 2;
+                    turnPoint(myindex);
                     break;
                 case 'GO':
                     go(index);
@@ -102,23 +106,21 @@
                     go(2);
                     break;
                 case 'MOV LEF':
-                    turnPoint(3);
-                    go(3);
+                    moveleft();
                     break;
                 case 'MOV TOP':
-                    turnPoint(0);
-                    go(0);
+                    movetop();
                     break;
                 case 'MOV RIG':
-                    turnPoint(1);
-                    go(1);
+                    moveright();
                     break;
                 case 'MOV BOT':
-                    turnPoint(2);
-                    go(2);
+                    movebottom();
                     break;
 
             }
+            
+           
 
 
 
@@ -127,26 +129,13 @@
         //改变方向
         function turnPoint(i) {
 
-            index %= 4;
+             index %= 4;
             if (index < 0) {
                 index = 4 + index;
             }
+            cell.style.transform = 'rotate('+i*90+'deg)';
 
-            cell.style.border = "0";
-            switch (i) {
-                case 0:
-                    cell.style.borderTop = "15px solid blue";
-                    break;
-                case 1:
-                    cell.style.borderRight = "15px solid blue";
-                    break;
-                case 2:
-                    cell.style.borderBottom = "15px solid blue";
-                    break;
-                case 3:
-                    cell.style.borderLeft = "15px solid blue";
-                    break;
-            }
+           
         }
         //向前移动
         function go(i) {
@@ -188,6 +177,115 @@
                         break;
                     }
             }
+        }
+        //转到指定方向并向前移动
+        function movetop(){
+            switch(index){
+                case 0:
+                    alert("已经转向了上方!")
+                    break;
+                case 1:
+                    index-=1;
+                    myindex-=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 2:
+                    index-=2;
+                    myindex-=2;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 3:
+                    index+=1;
+                    myindex+=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+            }
+            
+            
+        }
+        function moveleft(){
+            switch(index){
+                case 0:
+                    index-=1;
+                    myindex-=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 1:
+                    index-=2;
+                    myindex-=2;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 2:
+                    index+=1;
+                    myindex+=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 3:
+                    alert("已经转向了左方!");
+                    break;
+            }
+            
+            
+        }
+        function moveright(){
+            switch(index){
+                case 0:
+                    index+=1;
+                    myindex+=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 1:
+                    alert("已经转向了右方!");
+                    break;
+                case 2:
+                    index-=1;
+                    myindex-=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 3:
+                    index-=2;
+                    myindex-=2;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+            }
+            
+            
+        }
+        function movebottom(){
+            switch(index){
+                case 0:
+                    index+=2;
+                    myindex+=2;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 1:
+                    index+=1;
+                    myindex+=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+                case 2:
+                    alert("已经转向了下方!");
+                    break;
+                case 3:
+                    index-=1;
+                    myindex-=1;
+                    turnPoint(myindex);
+                    go(index);
+                    break;
+            }
+            
+            
         }
 
 
