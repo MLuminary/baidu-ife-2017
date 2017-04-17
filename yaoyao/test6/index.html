@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>test6</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <button id="btn" type="button">弹出浮动层</button>
+    <div id="container" class="container">
+        <div id="box" class="box" style="width:400px;height:200px;">
+            <h1 id="bar">按住此处拖拽</h1>
+            <p>这是一个浮出层</p>
+            <a id="sure" class="first" href="#">确定</a>
+            <a id="del" href="#">取消</a>
+        </div>
+    </div>
+    <script src="js/drag.js"></script>
+    <script src="js/change.js"></script>
+    <script>
+        (function () {
+            var $ = function (id) {
+                return document.getElementById(id);
+            }
+            var btn = $('btn'),
+                box = $('box'),
+                sure = $('sure'),
+                bar = $('bar'),
+                del = $('del'),
+                bottom = $('bottom'),
+                left = $('left'),
+                right = $('right'),
+                container = $('container');
+
+
+            btn.onclick = function () {
+                container.style.display = "block";
+                var pageWidth = document.body.offsetWidth,
+                    pageHeight = container.offsetHeight,
+                    boxWidth = parseInt(box.style.width),
+                    boxHeight = parseInt(box.style.height);
+
+                //js设置居中,这样可以获得到box的left和top值
+                box.style.left = pageWidth / 2 - boxWidth / 2 + 'px';
+                box.style.top = pageHeight / 2 - boxHeight / 2 + 'px';
+            }
+
+            container.onclick = function () {
+                container.style.display = "none";
+            }
+
+            box.onclick = function (event) {
+                var event = event || window.event;
+                event.stopPropagation();
+            }
+
+            sure.onclick = function (event) {
+                var event = event || window.event;
+                event.stopPropagation();
+                container.style.display = "none";
+            }
+
+            del.onclick = function (event) {
+                var event = event || window.event;
+                event.stopPropagation();
+                container.style.display = "none";
+            }
+            //可拖拽
+            startDrag(bar, box);
+         
+
+        })()
+    </script>
+
+</body>
+
+</html>
