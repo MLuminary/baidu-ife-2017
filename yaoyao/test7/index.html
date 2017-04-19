@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>test7</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            width: 502px;
+            margin: 0 auto;
+        }
+        
+        table {
+            width: 500px;
+            border-collapse: collapse;
+            text-align: center;
+            border: 1px solid rgb(218, 218, 218);
+        }
+        
+        table tr {
+            height: 30px;
+        }
+        
+        table thead td {
+            position: relative;
+            background: rgb(91, 91, 91);
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        table thead td:nth-child(n+2):after {
+            content: "";
+            position: absolute;
+            top: 9px;
+            right: 5px;
+            border-bottom: 5px solid #fff;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+        }
+        
+        table thead td:nth-child(n+2):before {
+            content: "";
+            position: absolute;
+            top: 18px;
+            right: 5px;
+            border-top: 5px solid #fff;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+        }
+        
+        table td {
+            border: 1px solid rgb(218, 218, 218);
+        }
+        
+        button {
+            float: right;
+            margin-left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+
+        <table id="tab">
+            <thead>
+                <tr>
+                    <td>姓名</td>
+                    <td>语文</td>
+                    <td>数学</td>
+                    <td>英语</td>
+                    <td>总分</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>小明</td>
+                    <td>80</td>
+                    <td>90</td>
+                    <td>70</td>
+                    <td>240</td>
+                </tr>
+                <tr>
+                    <td>小红</td>
+                    <td>90</td>
+                    <td>60</td>
+                    <td>90</td>
+                    <td>240</td>
+                </tr>
+                <tr>
+                    <td>小亮</td>
+                    <td>60</td>
+                    <td>100</td>
+                    <td>70</td>
+                    <td>230</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="add" type="button">增加一行</button>
+        <button id="del" type="button">减少一行</button>
+    </div>
+    <script>
+        (function () {
+            var table = document.getElementById('tab'),
+                add = document.getElementById('add'),
+                del = document.getElementById('del'),
+                table_head = table.getElementsByTagName('tr')[0],
+                btns = table_head.getElementsByTagName('td');
+
+               
+
+            var data = [],
+                row = 3;//表格的行数
+            setData();
+            setWrite();
+
+            add.onclick = setTr;
+            del.onclick = delTr;
+            //除第一列之外每列添加排序功能
+            var isFirst = true;
+            for(var i=1;i<btns.length;i++){
+                (function(i){
+                    btns[i].onclick = function(){
+                         //获取表格中的元素存入data中
+                         setWrite();
+                         sort(i,isFirst);
+                         updateTable();
+                         isFirst = !isFirst;
+                    }
+                })(i);
+            }
+            
+
+
+
+            //动态创建二维数组
+
+            function setData() {
+                //多创建一行，数组的下标为0时没有赋值
+                for (var i = 0; i < row + 1; i++) {
+                    data[i] = [];
+                }
+            }
+
+            //将td设置成可编辑
+            function setWrite() {
+                var trs = document.getElementsByTagName('tr');
+                for (var i = 1; i < trs.length; i++) {
+                    var tds = trs[i].getElementsByTagName('td');
+                    for (var j = 0; j < tds.length; j++) {
+
+                        tds[j].contentEditable = true;
+                        data[i][j] = tds[j].innerText;
+                    }
+                }
+            }
+
+
+            //更新表格数据
+            function updateTable(){
+                var trs = document.getElementsByTagName('tr');
+                for (var i = 1; i < trs.length; i++) {
+                    var tds = trs[i].getElementsByTagName('td');
+                    for (var j = 0; j < tds.length; j++) {
+
+                        tds[j].innerText = data[i][j];
+                    }
+                }
+            }
+
+
+            //创建一行
+            function setTr() {
+                var line = "<td></td>" +
+                           "<td></td>" +
+                           "<td></td>" +
+                           "<td></td>" +
+                           "<td></td>"
+                var Tr = document.createElement('tr');
+                Tr.innerHTML = line;
+                tab.appendChild(Tr);
+                row++;
+                setData();
+                setWrite();
+            }
+            //删除一行
+            function delTr(){
+                var trs = document.getElementsByTagName('tr');
+                tab.deleteRow(trs.length-1);
+                row--;
+                setData();
+                setWrite();
+            }
+            //表格按某一行排序
+            function sort(i,isFirst){
+                var temp;
+                if(isFirst){
+                    for(var j=1;j<row;j++){
+                        for(var k=j+1;k<row+1;k++){
+                            if(data[k][i]>data[j][i]){
+                                temp = data[k];
+                                data[k] = data[j];
+                                data[j] = temp;
+                            }
+                        }
+                    }
+                }else{
+                    for(var j=1;j<row;j++){
+                        for(var k=j+1;k<row+1;k++){
+                            if(data[k][i]<data[j][i]){
+                                temp = data[k];
+                                data[k] = data[j];
+                                data[j] = temp;
+                            }
+                        }
+                    }
+                }
+            }
+
+        })()
+    </script>
+</body>
+
+</html>
